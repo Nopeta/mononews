@@ -1,23 +1,55 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import { useState, useEffect } from 'react';
+
 
 function App() {
+  const [data, setData] = useState([])
+  const [information, serInformation] = useState({});
+  useEffect(() => {
+    async function fetchMyAPI() {
+      const response = await fetch('https://hihl.herokuapp.com/message');
+      const responseJson = await response.json()
+      // console.log(responseJson);
+
+      setData(responseJson.data)
+    }
+    fetchMyAPI()
+  }, [])
+
+  console.log(data);
+
+  const Get_news = () => {
+    return (
+      <>
+        {
+          data.map((data, i) => (
+
+            <div className="card">
+              <div>{data.title}</div>
+              <div className="underright">{data.date}</div>
+            </div>
+
+
+          ))
+        }
+      </>
+    )
+
+  }
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className="outer">
+        <div className="inner">
+          <p>MONO NEWS</p>
+        </div>
+      </div>
+      <div className="center">
+        <Get_news />
+      </div>
     </div>
   );
 }
