@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 
 function App() {
   const [data, setData] = useState([])
-  const [information, serInformation] = useState({});
   useEffect(() => {
     async function fetchMyAPI() {
       const response = await fetch('https://hihl.herokuapp.com/message');
@@ -25,9 +24,11 @@ function App() {
         {
           data.map((data, i) => (
 
-            <div className="card">
+            <div id={i} className="card">
+
               <div>{data.title}</div>
               <div className="underright">{data.date}</div>
+
             </div>
 
 
